@@ -4,9 +4,12 @@
 <body>
 	<script type="text/javascript">
 
+		// each, reduce, filter, map,
+		// max, 
+
 		function each(col, iter){
 			// col should be array.
-			for (var i = 0; i <= col.length; i++) {
+			for (var i = 0; i < col.length; i++) {
 				iter(col[i], i, col);	
 			}
 		}
@@ -70,11 +73,11 @@
 		};
 		var p1 = reduce(books, maxPrice);
 
-		// max version 2
+		// max version 2 :  cond(cur, pre)
 		function max(col, cond){
 
 			if (cond === undefined || cond === null)
-				cond = function(cur, pre){ return cur >= pre;};
+				cond = function(cur, pre){ return cur >= pre;};	// default is compare by greatOrEqual
 
 			return reduce(col, function(pre, cur, idx, arr){
 				return cond(cur, pre) ? cur : pre;  
@@ -83,11 +86,34 @@
 
 		var byPrice = function(cur, pre){ return cur.price > pre.price;};
 		var p2 = max(books, byPrice);
+		var p3 = max(books, function(cur, pre){ return cur.price >= pre.price;});
 
+		var p4 = max([3,4,5,2,1], function(cur, pre){ return cur >= pre;});
+		var p5 = max([3,4,6,7,2,4]);
 
-		var p3 = max([3,4,5,2,1], function(cur, pre){ return cur >= pre;});
-		var p4 = max([3,4,6,7,2,4]);
+		var words = ['aa', 'bbb', 'cccc', 'd', 'eeee'];
+		var byLength = function(cur, pre){ return cur.length >= pre.length;};
+		var p6 = max(words, byLength);
 
+		// max version 3. generate a comparable value, compare it by >
+		function max_2(col, cond){
+			var memo = cond(col[0]);
+			each(col, function(e,i,c){
+				var computed = cond(e);
+				memo = memo >= computed ? memo : computed;
+			});
+
+			return memo;
+		}
+
+		var p7 = max_2(words, function(w){
+			return w.length;
+		})
+
+		var byIsbn = function(w){ return w.isbn;}
+		var p8 = max_2(books, byIsbn);
+
+		
 		debugger;
 
 	</script>
