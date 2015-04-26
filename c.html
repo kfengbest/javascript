@@ -66,7 +66,8 @@
 		// max version 1
 		var books = [{title : 'aa', isbn : 111, price : 10}, 
 					 {title : 'bb', isbn : 222, price : 30}, 
-					 {title : 'cc', isbn : 333, price : 20}];
+					 {title : 'cc', isbn : 333, price : 20},
+					 {title : 'dd', isbn : 444, price : 10}];
 
 		var maxPrice = function(pre, cur, idx, col){ 
 			return pre.price >= cur.price ? pre : cur;
@@ -113,6 +114,7 @@
 		var byIsbn = function(w){ return w.isbn;}
 		var p8 = max_2(books, byIsbn);
 
+		// find
 		function find(col, valueFn, bestFn){
 			return reduce(col, function(pre, cur, indx, col){
 				var curValue = valueFn(cur);
@@ -126,6 +128,25 @@
 		var byPrice = function(book){return book.price;}
 		var cheaper = function(cur, pre){ return cur <= pre ? cur : pre;}
 		var p9 = find(books, byPrice, cheaper);
+
+		// best
+		function best(col, cond){
+			return reduce(col, function(pre, cur, idx, arr){
+				return cond(cur, pre) ? cur : pre;
+			});
+		}
+		var cheaper = function(cur, pre){ return cur.price <= pre.price;};
+		var p10 = best(books, cheaper);
+		var withPrice = function(price){
+			return function(e,i,c){ 
+				return e.price === price; 
+			}
+		} 
+		var cheapest = p10.price;
+		var pAllCheapestBooks = filter(books, withPrice(cheapest));
+
+		//var p11 = best(books, function latest(cur, pre){ });
+
 
 		debugger;
 
