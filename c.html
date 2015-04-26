@@ -1,0 +1,95 @@
+<html>
+<head>
+</head>
+<body>
+	<script type="text/javascript">
+
+		function each(col, iter){
+			// col should be array.
+			for (var i = 0; i <= col.length; i++) {
+				iter(col[i], i, col);	
+			}
+		}
+
+		function reduce(col, iter, memo){
+
+			var begin = 0;
+			if (memo === undefined || memo === null) {
+				begin = 1;
+				memo = col[0];
+			}
+
+			for (var i = begin; i < col.length; i++) {
+				memo = iter(memo, col[i], i, col);	
+			}
+			return memo;
+		}
+
+		function filter(col, iter){
+			var res = [];
+			for(var i = 0; i < col.length; i++){
+				if(iter(col[i], i, col))
+					res.push(col[i]);
+			}
+			return res;
+		}
+
+		function map(col, iter){
+			var res = [];
+			for(var i = 0; i < col.length; i++){
+				res[i] = iter(col[i], i, col);
+			}
+			return res;
+		}
+
+		// test each
+		var print = function(e,i,c){ console.log(e); }
+		each([4,5,6], print);
+
+		// test reduce
+		var sum = function(pre, cur, idx, col){ return pre + cur;}
+		var multiply = function(pre, cur, idx, col){ return pre * cur; };
+		var greatOrEqual = function(pre, cur, idx, col){ return pre >= cur ? pre : cur; };
+
+		var t1 = reduce([1,2,3,4], sum);
+		var m1 = reduce([1,2,3,4], multiply);
+		var m2 = reduce([3,2,4,5], greatOrEqual);
+
+		// test filter
+		var doubled = function(e,i,c){ return e * 2;}
+		var f1 = map([1,2,3,4], doubled);
+
+
+		// max version 1
+		var books = [{title : 'aa', isbn : 111, price : 10}, 
+					 {title : 'bb', isbn : 222, price : 30}, 
+					 {title : 'cc', isbn : 333, price : 20}];
+
+		var maxPrice = function(pre, cur, idx, col){ 
+			return pre.price >= cur.price ? pre : cur;
+		};
+		var p1 = reduce(books, maxPrice);
+
+		// max version 2
+		function max(col, cond){
+
+			if (cond === undefined || cond === null)
+				cond = function(cur, pre){ return cur >= pre;};
+
+			return reduce(col, function(pre, cur, idx, arr){
+				return cond(cur, pre) ? cur : pre;  
+			});
+		}
+
+		var byPrice = function(cur, pre){ return cur.price > pre.price;};
+		var p2 = max(books, byPrice);
+
+
+		var p3 = max([3,4,5,2,1], function(cur, pre){ return cur >= pre;});
+		var p4 = max([3,4,6,7,2,4]);
+
+		debugger;
+
+	</script>
+</body>
+</html>
