@@ -113,7 +113,20 @@
 		var byIsbn = function(w){ return w.isbn;}
 		var p8 = max_2(books, byIsbn);
 
-		
+		function find(col, valueFn, bestFn){
+			return reduce(col, function(pre, cur, indx, col){
+				var curValue = valueFn(cur);
+				var bestValue = valueFn(pre);
+				var compared = bestFn(curValue, bestValue);
+
+				return bestValue === compared ? pre : cur;
+			});
+		}
+
+		var byPrice = function(book){return book.price;}
+		var cheaper = function(cur, pre){ return cur <= pre ? cur : pre;}
+		var p9 = find(books, byPrice, cheaper);
+
 		debugger;
 
 	</script>
