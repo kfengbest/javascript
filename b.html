@@ -1,0 +1,179 @@
+<html>
+<head>
+</head>
+<body>
+	<script type="text/javascript">
+
+
+		function for_each(col, action){
+			for( var e in col){
+				action(col[e]);
+			}
+		}
+
+		function map(col, transform){
+			var res = [];
+			for_each(col, function(e){
+				res.push(transform(e));
+			});
+			return res;
+		}
+
+		function reduce(col, combine, start){
+			var cur = start;
+			for_each(col, function(e){
+				cur = combine(cur, e);
+			});
+			return cur;
+		}
+
+		function sum(col){
+			return reduce(col, function(a,b){return a + b;}, 0);
+		}
+
+		function filter(col, test){
+			var res = [];
+			for_each(col, function(e){
+				if (test(e)) 
+					res.push(e);
+			});
+			return res;
+		}
+
+
+		var persons = [ 
+						{name: 'aa', age : 10}, 
+						{name: 'bb', age : 5}, 
+						{name: 'cc', age : 3}, 
+						{name: 'dd', age : 40}
+					  ];
+
+		var getAge = function(e) { return e.age; }
+		var getName = function(e) { return e.name; }
+		var add = function(a, b){ return a + b; };
+		var less_than_20 = function(e) {return e < 20;}
+		var smaller = function(cur, min){ 
+			return cur < min ? cur : min;
+		};
+		var ages = map(persons, getAge);
+		var kids = filter(ages, less_than_20);
+		var kidsAges = reduce(kids, add, 0);
+		var total = sum(ages);
+		var youngest = reduce(ages, smaller, ages[0]);
+
+
+		function lo(){
+			var name1 = "AA";
+			if(name1)
+			{
+				var name1 = "BB"
+				console.log(name1);
+			}
+
+			console.log(name1);
+
+		}
+
+		lo();
+
+
+		var button = {
+
+			fade : 10,
+			name : "bb",
+
+			get : function(k){
+
+				return this;
+			},
+
+			click : function(cb){
+				
+				cb(this);
+
+				return this;
+			},
+
+			fade : function(v){
+
+				this.fade = v;
+				return this;
+			}
+
+
+		};
+
+		button.get('a')
+			.fade(13)
+			.click( function(obj){
+				console.log(obj);
+			});
+
+
+		var sliceArray = function(arr, beg, end){
+
+			var inRange = function(b,e){
+
+				return function(o,i,a){
+					return i >= b && i < e;
+				}
+			}
+			return arr.filter(inRange(beg, end));
+		}
+
+
+		sliceArray([1,2,3,4,5], 1,2)
+
+		var obj = {a:1, b:2, c:3 }
+		Array.prototype.map.call(obj, function(e,i,o){
+			console.log(e);
+			console.log(i);
+		});
+
+		[2,3,4].reduce(function(pre,cur,idx,arr){
+			return pre * cur;
+		}, 1);
+
+
+function WordCount(str) { 
+
+  // code goes here  
+  var dic = {};
+  
+  var toArray = function(s){
+  	s.split(' ');
+  };
+  
+  var indexIt = function(e,i,o){
+  	if(dic.hasOwnProperty(e))
+      dic[e] += 1;
+    else
+      dic[e] = 1;
+  };
+  
+  var keys = function(a){
+    var res = [];
+  	for( var k in a){
+    	if(a.hasOwnProperty(k))
+          res.push(k);
+    }
+    return res;
+  }
+  
+  var arr = str.split(' ');
+  
+  arr.forEach(IndexIt);
+  
+  var res = keys(dic).length;
+  
+  return res; 
+         
+}
+
+var len = WordCount("aa bb cc dd");
+
+		var xx = 0
+
+	</script>
+</body>
+</html>
