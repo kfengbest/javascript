@@ -19,5 +19,24 @@
 		<li ng-repeat="show in main.shows | filter:main.searchInput | orderBy:main.order.key:main.order.reverse" >{{show.title}} <span ng-if="show.favorite">-good</span> </li>
 	</ul>
 	<select ng-model="main.order" ng-options="order as order.title for order in main.orders"></select>
+	<br/>
+	<br/>
+	<form name="main.addForm">
+		<div>
+			<label>Title</label>
+			<input ng-model="main.new.title"></input>
+		</div>
+		<div>
+			<label>Year</label>
+			<input ng-model="main.new.year"></input>
+		</div>
+		<div>
+			<label>Favorate</label>
+			<input type="checkbox" ng-model="main.new.favorite"></input>
+		</div>
+		<div>
+			<button>Add</button>
+		</div>
+	</form>
 </body>
 </html>
