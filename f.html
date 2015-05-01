@@ -1,7 +1,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>AngularJS Tutorial</title>
+	<title>AngularJS</title>
 	<link rel="stylesheet" herf="./3p/bootstrap.css"></link>
 	<script src="./3p/angular.js"></script>
 	<script src="f.app.js"></script>
@@ -11,5 +11,9 @@
 	nothing yet
 	<br/>
 	<h1>{{main.title}}</h1>
+	<br/>
+	<ul>
+		<li ng-repeat="show in main.shows">{{show.title}}</li>
+	</ul>
 </body>
 </html>
