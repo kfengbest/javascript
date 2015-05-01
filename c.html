@@ -144,9 +144,31 @@
 		} 
 		var cheapest = p10.price;
 		var pAllCheapestBooks = filter(books, withPrice(cheapest));
-
 		//var p11 = best(books, function latest(cur, pre){ });
 
+		// repeat
+		function range(start, end, step){
+
+			if(end === undefined && step === undefined){
+				end = start;
+				start = 0;
+				step = 1;
+			}
+
+			var res = [];
+			var size = Math.ceil((end - start) / step);
+			for(var i = 0; i < size; i++)
+				res[i] = start + i*step;
+
+			return res;
+		}
+
+		function identity(v){return v;}
+		function repeat1(times, VALUE){
+			return map(range(times), function(){return VALUE;});
+		}
+
+		var v1 = repeat1(3,"aaa");
 
 		debugger;
 

@@ -1,0 +1,104 @@
+<html>
+<head>
+</head>
+<body>
+	<div id="todoapp">
+		<header>
+			<h1>Todos</h1>
+			<input id="new-todo"></input>
+		</header>
+		<section>
+			<input type="checkbox"></input>
+			<label>mark all as completed</label>
+			<ul id="todo-list">
+				<li>aaa</li>
+			</ul>
+		</section>
+	</div>
+
+	<script src="./3p/json2.js"></script>
+	<script src="./3p/jquery.js"></script>
+	<script src="./3p/underscore.js"></script>
+	<script src="./3p/backbone.js"></script>
+
+	<script type="text/template" id="item-template">
+		<li><%- title %></li>
+	</script>
+
+	<script type="text/javascript">
+		$(function(){
+		
+			Backbone.sync = function(method, model, options) { 
+
+			};
+
+			// TODO Model
+			var Todo = Backbone.Model.extend({
+				defaults : {
+						title : "empty todo",
+						done : false
+					}
+			});
+
+			var TodoList = Backbone.Collection.extend({
+				model : Todo
+			});
+
+			var Todos = new TodoList();
+
+			var TodoView = Backbone.View.extend({
+				tagName : "li",
+				template : _.template($("#item-template").html()),
+				render :function(){
+					this.$el.html( this.template( this.model.toJSON()));
+					return this;
+				}
+			});
+
+			var AppView = Backbone.View.extend({
+				
+				el : $("#todoapp"),
+
+				initialize : function(){
+					this.input = $("#new-todo");
+					this.listenTo(Todos, 'add', this.addOne);
+					
+				},
+
+				events : {
+					"keypress #new-todo" : "createOnEnter"
+				},
+
+				createOnEnter : function(e){
+					if (e.keyCode != 13) 
+						return;
+					if (!this.input.val())
+						return;
+
+					var newItem = Todos.create({
+						title : this.input.val(),
+						done : false
+					});
+
+					this.input.val('');
+
+				},
+
+				addOne : function(ele, col, options){
+
+					// $("#todo-list").append("<li>" + model.attributes.title + "</li>");
+
+					var itemView = new TodoView({model : ele});
+					var cont = itemView.render().el;
+					$("#todo-list").append(cont);
+
+				}
+
+			});
+
+			var app = new AppView();
+		});
+	</script>
+
+</body>
+</html>

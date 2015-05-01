@@ -1,0 +1,31 @@
+<html>
+<head>
+</head>
+<body>
+	<script type="text/javascript">
+
+		function add () {
+			var that = this;
+			var args = arguments;
+
+			debugger;
+		}
+
+		function add2(a, b){
+
+			var that = this;
+			var args = arguments;
+
+			return a + b;
+		}
+
+		var r = add(1,2);
+
+		add.apply(null, [3,4]);
+		add.apply();
+		add.apply("hosted");
+		
+		debugger;
+	</script>
+</body>
+</html>
