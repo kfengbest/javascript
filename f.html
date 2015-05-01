@@ -1,13 +1,15 @@
-<html ng-app>
+<html>
 <head>
+	<meta charset="UTF-8">
+	<title>AngularJS Tutorial</title>
+	<link rel="stylesheet" herf="./3p/bootstrap.css"></link>
 	<script src="./3p/angular.js"></script>
+	<script src="f.app.js"></script>
+	<script src="f.ctrl.js"></script>
 </head>
-<body>
-	hello {{thename || 'angular'}}
+<body ng-app="app" ng-controller="MainController as main">
+	nothing yet
 	<br/>
-	<input type="text" ng-model="thename"></input>
-
-	<script type="text/javascript">
-	</script>
+	<h1>{{main.title}}</h1>
 </body>
 </html>
