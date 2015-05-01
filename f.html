@@ -16,7 +16,8 @@
 	<p>{{main.searchInput}}</p>
 	<br/>
 	<ul>
-		<li ng-repeat="show in main.shows | filter:main.searchInput" >{{show.title}} <span ng-if="show.favorite">-good</span> </li>
+		<li ng-repeat="show in main.shows | filter:main.searchInput | orderBy:main.order.key:main.order.reverse" >{{show.title}} <span ng-if="show.favorite">-good</span> </li>
 	</ul>
+	<select ng-model="main.order" ng-options="order as order.title for order in main.orders"></select>
 </body>
 </html>
