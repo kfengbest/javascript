@@ -12,6 +12,9 @@
 	<br/>
 	<h1>{{main.title}}</h1>
 	<br/>
+	<input ng-model="main.searchInput"></input>
+	<p>{{main.searchInput}}</p>
+	<br/>
 	<ul>
 		<li ng-repeat="show in main.shows">{{show.title}}</li>
 	</ul>
