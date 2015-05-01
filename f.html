@@ -21,7 +21,7 @@
 	<select ng-model="main.order" ng-options="order as order.title for order in main.orders"></select>
 	<br/>
 	<br/>
-	<form name="main.addForm">
+	<form name="main.addForm" ng-submit="main.addShow()">
 		<div>
 			<label>Title</label>
 			<input ng-model="main.new.title"></input>
