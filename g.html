@@ -1,0 +1,20 @@
+<html>
+<head>
+	<script src="./3p/react.js"></script>
+	<script src="./3p/JSXTransformer.js"></script>
+</head>
+<body>
+	<div id="example"></div>
+	<script type="text/javascript">
+		var HelloMessage = React.createClass({
+			displayName : "HelloMessage",
+			render : function(){
+				return React.createElement("div", null, "Hello ", this.props.name);
+			}
+		});
+		var newElem = React.createElement(HelloMessage, {name:"kkk"});
+		var parentElem = document.getElementById('example');
+		React.render(newElem, parentElem);
+	</script>
+</body>
+</html>
