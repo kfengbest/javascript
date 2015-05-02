@@ -69,6 +69,7 @@
 				if (!text || !author) return;
 
 				// TODO: send request to sever.
+    			this.props.onCommentSubmit({author: author, text: text});
 
 				// clear input
 				React.findDOMNode(this.refs.author).value = '';
@@ -115,12 +116,18 @@
 				setInterval(this.loadCommentsFromServer, this.props.pollInterval);
 			},
 
+			// step 7
+			handleCommentSubmit : function(comment){
+				// TODO: using ajax to POST to server
+				console.log("TODO: implement CommentBox.handleCommentSubmit");
+			},
+
 			render : function(){
 				return (
 					<div className="commentBox"> 
 						<h1> Comments </h1>
 						<CommentList data={this.state.data}/>
-						<CommentForm />
+						<CommentForm onCommentSubmit={this.handleCommentSubmit} />
 					</div>
 				);
 			}
