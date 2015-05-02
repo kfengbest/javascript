@@ -10,16 +10,25 @@
 		var TodoList = React.createClass({
 			displayName : "TodoList",
 			render : function(){
-				return React.createElement("div", null, "Hello ", "this.props.name");
+				var createItem = function(ele, idx){
+					return React.createElement("li", null, ele);
+				};
+				return React.createElement("ul", null, 
+							this.props.items.map(createItem)
+						);
 			}
 		});
 
 		var TodoApp = React.createClass({
 			displayName : "TodoApp",
+			getInitialState : function(){
+				return { items : ["eee","fff"], text : ""};
+			},
 			render : function(){
 				return React.createElement("div", null, 
 							React.createElement("h3", null, "TODO"),
 							React.createElement("input", null),
+							React.createElement(TodoList, {items : this.state.items}),
 							React.createElement("ul", null, 
 								React.createElement("li", null, "aaa"),
 								React.createElement("li", null, "bbb")
