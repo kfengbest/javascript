@@ -61,9 +61,27 @@
 
 		// step 3
 		var CommentForm = React.createClass({
+
+			handleSubmit : function(e){
+				e.preventDefault();
+				var author = React.findDOMNode(this.refs.author).value.trim();
+				var text = React.findDOMNode(this.refs.text).value.trim();
+				if (!text || !author) return;
+
+				// TODO: send request to sever.
+
+				// clear input
+				React.findDOMNode(this.refs.author).value = '';
+				React.findDOMNode(this.refs.text).value = '';
+			},
+
 			render : function(){
 				return (
-					<div className="commentForm"> I am a CommentForm</div>
+					<form className="commentForm" onSubmit={this.handleSubmit}> 
+						<input type="text" paceholder="Your name..." ref="author" />
+						<input type="text" paceholder="Say something..." ref="text" />
+						<input type="submit" value="Post" />
+					</form>
 				);
 			}
 		});
@@ -76,6 +94,7 @@
 						   ]};
 			},
 
+			// step 6
 			loadCommentsFromServer : function(){
 				$.ajax({
 					url : this.props.url,
@@ -90,6 +109,7 @@
 				});
 			},
 
+			// step 6
 			componentDidMount : function(){
 				this.loadCommentsFromServer();
 				setInterval(this.loadCommentsFromServer, this.props.pollInterval);
