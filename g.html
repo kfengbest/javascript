@@ -22,6 +22,11 @@
 
 	<script type="text/jsx">
 
+		// step 5
+		var commentsData = [{author : "peter", text : "a comment from peter"},
+							{author : "Jorn",  text : "comment from jorn"}
+						   ];
+
 		// step 4
 		var Comment = React.createClass({
 			render : function(){
@@ -37,10 +42,18 @@
 		// step 3
 		var CommentList = React.createClass({
 			render : function(){
+
+				var cmntNodes = this.props.data.map(function(ele){
+					return (
+						<Comment author={ele.author}> {ele.text} </Comment>
+					);
+				});
+
 				return (
 					<div className="commentList"> 
 						<Comment author="kkk"> comments from kkk </Comment>
 						<Comment author="fff"> comments from fff </Comment>
+						{cmntNodes}
 					</div>
 				);
 			}
@@ -61,7 +74,7 @@
 				return (
 					<div className="commentBox"> 
 						<h1> Comments </h1>
-						<CommentList />
+						<CommentList data={this.props.data}/>
 						<CommentForm />
 					</div>
 				);
@@ -69,7 +82,8 @@
 		});
 
 		// step 2
-		React.render(<CommentBox />, document.getElementById("comment"));
+		React.render(<CommentBox data={commentsData} />, 
+					document.getElementById("comment"));
 	</script>
 
 </body>
