@@ -11,7 +11,7 @@
 			displayName : "TodoList",
 			render : function(){
 				var createItem = function(ele, idx){
-					return React.createElement("li", null, ele);
+					return React.createElement("li", {key: idx + ele}, ele);
 				};
 				return React.createElement("ul", null, 
 							this.props.items.map(createItem)
@@ -27,13 +27,23 @@
 			render : function(){
 				return React.createElement("div", null, 
 							React.createElement("h3", null, "TODO"),
-							React.createElement("input", null),
+
 							React.createElement(TodoList, {items : this.state.items}),
-							React.createElement("ul", null, 
-								React.createElement("li", null, "aaa"),
-								React.createElement("li", null, "bbb")
+							React.createElement("form", {onSubmit : this.handleSubmit, value : this.state.text},
+								React.createElement("input", {onChange : this.onChange, value : this.state.text}),
+								React.createElement("button", null, "Add") 
 							)
 						);
+			},
+			onChange : function(e){
+				this.setState({text : e.target.value});
+			},
+
+			handleSubmit : function(e){
+				e.preventDefault();
+				var nextItems = this.state.items.concat(this.state.text);
+				var nextText = "";
+				this.setState({ items : nextItems, text : nextText});
 			}
 		});
 
