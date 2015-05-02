@@ -70,11 +70,36 @@
 
 		// step 1
 		var CommentBox = React.createClass({
+			getInitialState : function(){
+				return {data : [{author : "peter1", text : "a comment from peter"},
+							{author : "Jorn1",  text : "comment from jorn"}
+						   ]};
+			},
+
+			loadCommentsFromServer : function(){
+				$.ajax({
+					url : this.props.url,
+					dataType : "json",
+					cache : false,
+					success : function(d){
+						this.setState({data : d});
+					}.bind(this),
+					error : function(xhr, status, err){
+						console.log(xhr, status, err.toString());
+					}.bind(this)
+				});
+			},
+
+			componentDidMount : function(){
+				this.loadCommentsFromServer();
+				setInterval(this.loadCommentsFromServer, this.props.pollInterval);
+			},
+
 			render : function(){
 				return (
 					<div className="commentBox"> 
 						<h1> Comments </h1>
-						<CommentList data={this.props.data}/>
+						<CommentList data={this.state.data}/>
 						<CommentForm />
 					</div>
 				);
@@ -82,7 +107,7 @@
 		});
 
 		// step 2
-		React.render(<CommentBox data={commentsData} />, 
+		React.render(<CommentBox url="g.comments.json" pollInterval={5000} />, 
 					document.getElementById("comment"));
 	</script>
 
