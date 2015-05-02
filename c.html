@@ -170,6 +170,17 @@
 
 		var v1 = repeat1(3,"aaa");
 
+		var property = function(key){
+			return function(obj){
+				return obj[key];
+			};
+		};
+
+		var pp1 = {name : "kaa", title : "kbb"};
+		var ka = property('name')(pp1);
+		var getName = property("name");
+		var kb = getName(pp1);
+		
 		debugger;
 
 	</script>

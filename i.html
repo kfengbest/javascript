@@ -1,0 +1,22 @@
+<html>
+<head>
+	<script src="./3p/underscore.js"></script>
+</head>
+<body>
+	<script type="text/javascript">
+
+		var a = ['a','b','c'];
+		var b = "abcefg";
+		var c = {ka : "kaa", kb : "kbb"};
+
+		var a1 = _.keys(a);
+		var b1 = _.keys(b);
+		var c1 = _.keys(c);
+
+		_.each(c,function(e,i,c){
+			console.log(e,i);
+		});
+
+	</script>
+</body>
+</html>
