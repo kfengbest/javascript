@@ -4,6 +4,41 @@
 <body>
 	<script type="text/javascript">
 
+		function map1(col, fn){
+			return Array.prototype.map.call(col, fn);
+		}
+
+		function map2(fn){
+			return function(col){
+				return Array.prototype.map.call(col, fn);
+			}
+		}
+
+
+		var triple2 = map1([3,4,5], function(e){return 3*e;});
+
+		var triple2 = map2(function(e){return e*3;});
+		var t2 = triple([3,4,5]);
+
+
+		function property(key){
+			return function(obj){
+				return obj[key];
+			};
+		}
+
+		var n = property('name')({name: 'aa', age : 12});
+
+		function pluck(key){
+			return function(arr){
+				return map2(property(key))(arr)
+			}
+		}
+
+		var students = [{name : 'aa', age : 20},{name:'bb', age : 30}];
+		var n2 = pluck('name')(students);
+
+
 		function add () {
 			var that = this;
 			var args = arguments;

@@ -7,6 +7,10 @@
 		// each, reduce, filter, map,
 		// max, 
 
+		function cat(arr){
+			arr.forEach(function(e){console.log(e);});
+		}
+
 		function _property(key){
 			return function(obj){
 				return obj[key];
@@ -86,6 +90,10 @@
 			});
 			return res;
 		}
+
+		var isEven = function(e){ return e % 2 === 0;};
+		var u1 = filter([1,2,3,4,5], isEven);
+		cat(u1);
 
 		function map(col, iter){
 			var res = [];
@@ -249,7 +257,7 @@
 			e.price *= 2;
 		};
 		each(books, doublePrice);
-		
+
 		var book1 = books[0];
 		var isbn = function(e,i,c){
 			return e.isbn;
@@ -263,6 +271,44 @@
 		var plus = function(pre, cur, i, c){ return pre + cur;};
 		var totalPrice = reduce( prices, plus, 0);
 
+
+		// fib
+		// 0,1,1,2,3,5,8,13...
+		var fib1 = function(n){
+			return n < 2 ? n : fib1(n-1) + fib1(n-2);
+		}
+		console.log(fib1(3));		
+
+		var fib2 = (function(){
+			var memo = [0,1];
+			var fib = function(n){
+				var res = memo[n];
+				if (typeof res !== 'number'){
+					res = memo[n] = fib(n-1) + fib(n-2);
+				}
+				return res;
+			};
+			return fib;
+		});
+		console.log(fib2(5));
+
+
+		function memorize(fn){
+			var cache = {};
+			return function(){
+				var args = Array.prototype.slice.call(arguments);
+				console.log(args);
+				return (args in cache) ? cache[args] : (cache[args] = fn.apply(this, args))
+			};
+		}
+
+		var fib4 = function(n){
+			console.log(n);
+			return n < 2 ? n : fib4(n-1) + fib4(n-2);
+		};
+
+		var fib5 = memorize(fib4);
+		fib5(10);
 
 
 
