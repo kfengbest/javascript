@@ -7,11 +7,40 @@
 		// each, reduce, filter, map,
 		// max, 
 
+		function _property(key){
+			return function(obj){
+				return obj[key];
+			};
+		}
+
+		function _isArrayLiked (obj){
+			var len = _property('length')(obj);
+			return typeof len === 'number' && len >=0;
+		}
+
+		function _isObject(obj){
+			var tp = typeof obj;
+			return tp === "object" || tp === "function";
+		}
+
+		function _keys(obj){
+			return Object.keys.call(null, obj);
+		}
+
 		function each(col, iter){
 			// col should be array.
-			for (var i = 0; i < col.length; i++) {
-				iter(col[i], i, col);	
+
+			if(_isArrayLiked(col)){
+				for (var i = 0; i < col.length; i++) {
+					iter(col[i], i, col);	
+				}
+			}else{
+				var keys = _keys(col);
+				for(var i = 0; i < keys.length; i++ ){
+					iter(col[keys[i]], keys[i], col);
+				}
 			}
+
 		}
 
 		function reduce(col, iter, memo){
@@ -28,6 +57,17 @@
 			return memo;
 		}
 
+
+/*
+		function reduce(col, iter, memo){
+			each(col, function(e,i,c){
+				memo = iter(memo, e, i, c);
+			});
+			return memo;
+		}
+*/
+
+/*
 		function filter(col, iter){
 			var res = [];
 			for(var i = 0; i < col.length; i++){
@@ -36,12 +76,22 @@
 			}
 			return res;
 		}
+*/
+
+		function filter(col, iter){
+			var res = [];
+			each(col, function(e,i,c){
+				if (iter(e,i,c))
+					res.push(e);
+			});
+			return res;
+		}
 
 		function map(col, iter){
 			var res = [];
-			for(var i = 0; i < col.length; i++){
-				res[i] = iter(col[i], i, col);
-			}
+			each(col, function(e,i,c){
+				res.push(iter(e,i,c));
+			});
 			return res;
 		}
 
@@ -176,11 +226,46 @@
 			};
 		};
 
+		var isArray = function(obj){
+			var l = property('length')(obj);
+			if (l !== undefined ) {};
+		}
+
 		var pp1 = {name : "kaa", title : "kbb"};
 		var ka = property('name')(pp1);
 		var getName = property("name");
+		var getLength = property('length');
 		var kb = getName(pp1);
+		var l1 = getLength([1,2]);
+
+		each(books,function(e,i,c){
+			console.log(i);
+			each(e,function(e1,i1,c1){
+				console.log('  ',e1,i1);
+			});
+		});
+
+		var doublePrice = function(e,i,c){
+			e.price *= 2;
+		};
+		each(books, doublePrice);
 		
+		var book1 = books[0];
+		var isbn = function(e,i,c){
+			return e.isbn;
+		}
+		var isbns = map(books,isbn);
+
+		var title = property('title');
+		var titles = map(books, title);
+
+		var prices = map(books, property('price'));
+		var plus = function(pre, cur, i, c){ return pre + cur;};
+		var totalPrice = reduce( prices, plus, 0);
+
+
+
+
 		debugger;
 
 	</script>
