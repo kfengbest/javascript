@@ -1,24 +1,54 @@
 <html>
 <head>
 	<style type="text/css">
-		#div1 {background-color:gray}
-		#div2 {background-image:url(./res/eg_bg_04.gif); }
+		#div1 {
+			background-color:gray;
+			position: relative;
+			left:20px;
+		}
+		#div2 {
+			background-image:url(./res/eg_bg_04.gif); 
+			position: absolute;
+			left: 50px;
+		}
 
+		#div11{
+			left: 10px;
+		}
+
+		img.bigger1 {
+			width : 50%;
+		}
+		img.smaller2 {
+			height : 20%;
+		}
 	</style>
 	<script type="text/javascript">
 	</script>
 </head>
 <body>
+
+	<img class="auto" src="./res/eg_smile.gif" ></img>
+	<img class="bigger" src="./res/eg_smile.gif" ></img>
+	<img class="smaller" src="./res/eg_smile.gif" ></img>
+
 	<div id="div1">
-		<h1>This is header1</h1>
+		<h1>This is header1. this is header2</h1>
 		<h2>This is header2</h2>
 		<p>This is p</p>
+		<div id="div11">
+			<p>This is p in div11</p>
+			<p>This is p in div11</p>
+			<p>This is p in div11</p>
 
+		</div>
 	</div >
 	<div id="div2">
 		<h1>This is header1</h1>
 		<h2>This is header2</h2>
 		<p>This is p</p>
 	</div>
+
+
 </body>
 </html>
