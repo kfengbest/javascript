@@ -5,17 +5,26 @@
 <body>
 	<script type="text/javascript">
 
-		var a = ['a','b','c'];
-		var b = "abcefg";
-		var c = {ka : "kaa", kb : "kbb"};
+	// revert a string
 
-		var a1 = _.keys(a);
-		var b1 = _.keys(b);
-		var c1 = _.keys(c);
+	function reverseString(str){
+		return str.split('').reverse().join('');
+	}
 
-		_.each(c,function(e,i,c){
-			console.log(e,i);
-		});
+	var s1 = "abcdefg";
+	consolel.log(s1);
+	var s2 = reverseString(s1);
+	console.log(s2);
+
+
+	// get word array from sentence
+
+	// determining the largest word in a string.
+	function longestWord(str){
+		var toArray = function(s){ return []; };
+		var words = toArray(str);
+		
+	}
 
 	</script>
 </body>

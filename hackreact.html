@@ -1,0 +1,93 @@
+<html>
+<head>
+</head>
+<body>
+	<script type="text/javascript">
+
+// name: Kaven Feng
+// email: Kaven.Feng@autodesk.com
+// phone number: 86 13817519955
+
+var numbers = [1,2,3,4,5,6];
+
+var book = {
+	title: "javascript good part",
+    isbn:  12345,
+    publisher: "google"
+};
+
+var print = function(obj){
+	console.log(obj);
+};
+
+print( numbers[1] );
+
+print(book['isbn']);
+print(book.isbn);
+
+
+function each(collection, callback){
+// your code here
+	
+    if(Array.isArray(collection)){     // check if is array
+    	for( var i = 0; i < collection.length; i++){
+        	callback(collection[i]);
+        };
+    }else{      // check if is object
+		for (var x in collection){
+			callback(collection[x]);
+		};
+    }
+    
+}
+
+each(numbers, print);
+//1
+//2
+//3
+//4
+//5
+//6
+
+function map(collection, callback){
+  // your code here
+  var results = [];
+  each(collection, function(e){
+  	results.push(callback(e));
+  });
+  return results;
+}
+
+
+map(numbers, function(value){return value * 2;});
+// [2,4,6,8,10,12]
+
+function filter(collection, predicate){
+  // your code here
+  var results = [];
+  each(collection, function(e){
+  	if(predicate(e))
+    	results.push(e);
+  });
+  return results;
+}
+
+filter(numbers, function(value){return value > 2;});
+// [3,4,5,6]
+
+function reduce(collection, accumulator, startValue){
+  // your code here
+  each(collection, function(e){
+  	startValue = accumulator(startValue, e);
+  });
+  return startValue;
+}
+
+
+reduce([1,2,3,4,5], function(total, value){return total + value;}, 5);
+//20
+
+
+	</script>
+</body>
+</html>
