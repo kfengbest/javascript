@@ -27,3 +27,22 @@ describe('Expect.js', function(){
 		});
 	});
 })
+
+describe('Chai.js', function(){
+	describe('expect', function(){
+		it('equal', function(){
+			chai.expect(1).to.equal(1);
+		});
+	});
+	describe('should', function(){
+		it('be a', function(){
+			chai.should();
+			"".should.be.a("string");
+		});
+	});
+	describe('assert', function(){
+		it('equal', function(){
+			chai.assert.equal("string", "string");
+		});
+	});
+});
