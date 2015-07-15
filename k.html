@@ -41,6 +41,25 @@
 		}
 	</style>
 	<script type="text/javascript">
+ var containsFiveOrMoreDivs = function(domElement) {
+  // Your code here.
+  var count = count || 0;
+  if (count >= 5)
+	return true;
+
+  var childNodes = domElement.childNodes;
+  for(var i = 0; i < childNodes; i++){
+	if(childNodes[i].tagName === 'tagName'){
+		count += 1;
+	}
+	
+	containsFiveOrMoreDivs(childNodes[i].childNodes, count);
+  }
+
+  return (count >= 5);
+};
+
+containsFiveOrMoreDivs(window.document);
 
 	</script>
 </head>
