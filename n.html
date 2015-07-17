@@ -1,0 +1,165 @@
+<html>
+<head>
+	<script src="./3p/jquery.js"></script>
+
+	<style type="text/css">
+	</style>
+	<script type="text/javascript">
+
+	</script>
+</head>
+<body>
+	<script type="text/javascript">
+
+//---------------functional -----------------------------
+
+	var House1 = function(color){
+		var obj = {};
+
+		obj.color = color;
+		obj.door = 'open';
+
+		obj.open = function(){
+			obj.door = 'open';
+		}
+		obj.close = function(){
+			obj.door = 'close';
+		}
+			
+		return obj;
+	}
+
+	var h1 = House1('red');
+	h1.open();
+
+	var h2 = House1('yellow');
+	h2.close();
+
+	console.log(h1.open === h2.open);
+
+//---------------functional-shared -----------------------------
+
+
+	var _extend = function(dest, src){
+		for(var k in src){
+			dest[k] = src[k];
+		}
+	};
+
+	var House2 = function(c){
+		var obj = {};
+		obj.color = c;
+		obj.door = 'open';
+
+		_extend(obj, sharedMethod);
+
+		return obj;
+	}
+
+
+	var sharedMethod = {};
+	sharedMethod.open = function(){ 
+		this.door = 'open';
+	};
+
+	sharedMethod.close = function(){ 
+		this.door = 'closed';
+	};
+
+	sharedMethod.count = 0;
+
+	var h3 = House2('red');
+	h3.open();
+	h3.count = 3;
+	h3.open = function(){
+		this.door = 'changed by h3';
+	};
+
+	var h4 = House2('blue');
+	//h4.close();
+	h4.open();
+
+	console.log(h3.open === h4.open);
+
+
+//---------------functional-shared -----------------------------
+
+	var House3 = function(c){
+		var obj = Object.create(House3.sharedMethods);
+		obj.color = c;
+		obj.door = 'open';
+
+		//_extend(obj, House3.sharedMethods);
+
+		return obj;
+	}
+
+	House3.sharedMethods = {};
+	
+	House3.sharedMethods.open = function(){ 
+		this.door = 'open';
+	};
+
+	House3.sharedMethods.close = function(){ 
+		this.door = 'closed';
+	};
+
+	House3.sharedMethods.count = 0;
+
+
+	var h5 = House3('red');
+	h5.open();
+	h5.count = 3;
+
+	var h6 = House3('blue');
+	h6.close();
+
+	console.log(h5.open === h6.open);
+
+
+//---------------prototypal -----------------------------
+
+	var House4 = function(c){
+		var obj = Object.create(House4.prototype);
+		obj.color = c;
+		obj.door = 'open';
+
+		return obj;
+	}
+
+	House4.prototype.open = function(){
+		this.door = 'opened';
+	};
+
+	var h7 = House4('green');
+	h7.open();
+
+	var h8 = House4('black');
+	h8.open();
+
+	console.log(h7.open === h8.open);
+
+//---------------pseudoclass -----------------------------
+
+	var House5 = function(c){
+		this.color = c;
+		this.door = 'open';
+	}
+
+	House5.prototype.close = function(){
+		this.door = 'closed';
+	}
+
+	var h10 = new House5('gg');
+	h10.close();
+
+	var h11 = new House5('hh');
+	h11.close();
+
+	console.log(h10.close === h11.close);
+
+
+	</script>
+	hello
+</body>
+</html>
