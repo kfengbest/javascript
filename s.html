@@ -1,0 +1,36 @@
+<html>
+<head>
+	<script src="./3p/jquery.js"></script>
+
+	<style type="text/css">
+	</style>
+	<script type="text/javascript">
+
+	</script>
+</head>
+<body>
+	<script type="text/javascript">
+		
+	var Add = function (a, b) {
+		debugger;
+
+		return a + b;
+	}
+
+	var add1 = Add.bind({a:'a'},1);
+	console.log(add1(3));
+
+	var dbl = Array.prototype.map.bind([2,3,4]);
+	var v = dbl(function(e){return 3* e;});
+
+
+	function open(){
+		var url = "fusion360://userId=kaven.feng%40autodesk.compermalinkId=https%3A%2F%2Fmyhub.autodesk360.com%2Fu05%2Fxdio%2Fpermalink%2FXD56a43QTfd62c1cd96879fe5391d86fd0adhubId=u05documentName=v.4.0.0%20-final%20v3.";
+
+		window.location.href = url;
+
+	}
+	</script>
+	hello
+</body>
+</html>

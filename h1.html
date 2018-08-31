@@ -1,0 +1,22 @@
+<html>
+<head>
+	<script src="./3p/react.js"></script>
+	<script src="./3p/JSXTransformer.js"></script>
+</head>
+<body>
+	<div id="content"></div>
+	<script type="text/jsx">
+		var CommentBox = React.createClass({
+			render: function(){
+				return (
+					<div className="commentBox">comment box</div>
+				);
+			}
+		});
+
+		React.render(<CommentBox/>,
+			document.getElementById('content')
+			);
+	</script>
+</body>
+</html>

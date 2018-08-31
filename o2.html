@@ -1,0 +1,53 @@
+<html>
+<head>
+	<script src="./3p/jquery.js"></script>
+
+	<style type="text/css">
+	</style>
+	<script type="text/javascript">
+
+	</script>
+</head>
+<body>
+	<script type="text/javascript">
+		
+		//------functional
+
+		var inherits = function(childObj, parentObj) {
+		    var tmpObj = function () {}
+		    tmpObj.prototype = parentObj.prototype;
+		    childObj.prototype = new tmpObj();
+		    childObj.prototype.constructor = childObj;
+		};
+
+		var Dancer = function (loc) {
+			var obj = {loc: loc};
+		};
+
+		Dancer.move = function(){
+			obj.loc++;
+			console.log(obj.loc);
+		};
+
+		var PopDancer = function(loc){
+			Dancer.call(this,loc);
+		};
+
+		PopDancer.prototype.popping = function(){
+			console.log("PopDancer.popping");
+		};
+
+		inherits(PopDancer, Dancer);
+
+
+		var d1 = Dancer(10);
+		d1.move();
+
+		var d2 = PopDancer(20);
+		d2.move();
+		d2.popping();
+
+	</script>
+	hello
+</body>
+</html>

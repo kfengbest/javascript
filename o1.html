@@ -1,0 +1,45 @@
+<html>
+<head>
+	<script src="./3p/jquery.js"></script>
+
+	<style type="text/css">
+	</style>
+	<script type="text/javascript">
+
+	</script>
+</head>
+<body>
+	<script type="text/javascript">
+		
+		//------functional
+		var Dancer = function (loc) {
+			var obj = {loc: loc};
+			obj.move = function(){
+				obj.loc++;
+				console.log(obj.loc);
+			}
+
+			return obj;
+		};
+
+		var PopDancer = function(loc){
+			var obj = Dancer(loc);
+			obj.popping = function(){
+				console.log('pop');
+			};
+
+			return obj;
+		}
+
+
+		var d1 = Dancer(10);
+		d1.move();
+
+		var d2 = PopDancer(20);
+		d2.move();
+		d2.popping();
+
+	</script>
+	hello
+</body>
+</html>
